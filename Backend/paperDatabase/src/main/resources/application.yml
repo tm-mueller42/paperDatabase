@@ -19,9 +19,7 @@ datasets:
     - username: admin
       password: secret
       email: admin@me.com
-  papers:
-    - name: A Treaty On Nothing
-    - name: A Guide To Nihilism
-    - name: A Review of Futility
-
-
+#  papers:
+#    - name: A Treaty On Nothing
+#    - name: A Guide To Nihilism
+#    - name: A Review of Futility

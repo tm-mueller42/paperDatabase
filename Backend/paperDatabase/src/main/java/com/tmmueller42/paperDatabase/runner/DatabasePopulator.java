@@ -18,7 +18,7 @@ import java.util.Set;
 public class DatabasePopulator {
 
     private List<User> users;
-    private List<Paper> papers;
+    //private List<Paper> papers;
 
     @Bean
     ApplicationRunner dbPopulator(UserRepository userRepository,
@@ -28,9 +28,9 @@ public class DatabasePopulator {
 
 
             userRepository.saveAll(users);
-            paperRepository.saveAll(papers);
+            //paperRepository.saveAll(papers);
 
-
+/*
             User user = users.get(0);
             User admin = users.get(1);
             Paper paper1 = papers.get(0);
@@ -47,13 +47,18 @@ public class DatabasePopulator {
 
             paperRepository.saveAll(Set.of(paper1, paper2, paper3));
             userRepository.saveAll(Set.of(user, admin));
+
+ */
         };
     }
 
     public void setUsers(List<User> users) {
         this.users = users;
     }
+    /*
     public void setPapers(List<Paper> papers) {
         this.papers = papers;
     }
+
+     */
 }
