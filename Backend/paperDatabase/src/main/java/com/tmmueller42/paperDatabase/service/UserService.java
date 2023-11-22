@@ -4,6 +4,7 @@ import com.tmmueller42.paperDatabase.persistence.entity.User;
 import com.tmmueller42.paperDatabase.persistence.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,5 +40,11 @@ public class UserService {
     }
 
     public List<User> findByAuthority(String authority) { return userRepository.findByAuthoritiesContaining(authority); }
+
+    /*public User getCurrentUser (Principal principal) {
+        return principal.getName();
+    }
+
+     */
 
 }

@@ -22,6 +22,11 @@ public class PaperEndpoint {
         return paperService.findAll();
     }
 
+    @GetMapping("{id}")
+    Paper findById(@PathVariable Long id)  {
+        return paperService.findById(id).orElseThrow(ElementNotFoundException::new);
+    }
+
     @GetMapping("/title/{title}")
     Paper findByTitle(@PathVariable String title) throws ElementNotFoundException {
         return paperService.findByTitle(title).orElseThrow(ElementNotFoundException::new);

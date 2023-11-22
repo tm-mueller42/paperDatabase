@@ -35,4 +35,8 @@ public class PaperService {
     public void deleteById(long id) {
         paperRepository.deleteById(id);
     }
+
+    public Optional<Paper> findById(Long id) {
+        return paperRepository.findById(id);
+    }
 }
