@@ -1,12 +1,19 @@
 package com.tmmueller42.paperDatabase.service;
 
+import com.tmmueller42.paperDatabase.api.exception.ElementNotFoundException;
+import com.tmmueller42.paperDatabase.persistence.entity.Paper;
 import com.tmmueller42.paperDatabase.persistence.entity.User;
+import com.tmmueller42.paperDatabase.persistence.entity.UserPaperMapping;
 import com.tmmueller42.paperDatabase.persistence.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class UserService {
@@ -40,6 +47,11 @@ public class UserService {
     }
 
     public List<User> findByAuthority(String authority) { return userRepository.findByAuthoritiesContaining(authority); }
+
+    public Set<Paper> getAllPapersByUserId(Long userId) {
+        return getById(userId).map(User::getUserPaperMappings)
+                .stream().flatMap(Collection::stream).map(UserPaperMapping::getPaper).collect(Collectors.toSet());
+    }
 
     /*public User getCurrentUser (Principal principal) {
         return principal.getName();

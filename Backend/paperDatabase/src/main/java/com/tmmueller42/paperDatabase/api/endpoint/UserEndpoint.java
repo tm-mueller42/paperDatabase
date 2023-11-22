@@ -1,6 +1,7 @@
 package com.tmmueller42.paperDatabase.api.endpoint;
 
 import com.tmmueller42.paperDatabase.api.exception.ElementNotFoundException;
+import com.tmmueller42.paperDatabase.persistence.entity.Paper;
 import com.tmmueller42.paperDatabase.persistence.entity.User;
 import com.tmmueller42.paperDatabase.service.UserService;
 import org.springframework.security.access.annotation.Secured;
@@ -8,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("users")
@@ -30,6 +32,12 @@ public class UserEndpoint {
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     User getById(@PathVariable Long id) throws ElementNotFoundException {
         return userService.getById(id).orElseThrow(ElementNotFoundException::new);
+    }
+
+    @GetMapping("{userId}/papers")
+    @Secured({"ROLE_USER"})
+    Set<Paper> getAllPapersByUserId(@PathVariable Long userId) {
+        return userService.getAllPapersByUserId(userId);
     }
 
     @GetMapping("/filter")

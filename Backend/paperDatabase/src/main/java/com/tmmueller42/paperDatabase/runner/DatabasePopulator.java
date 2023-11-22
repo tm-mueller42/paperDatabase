@@ -43,10 +43,10 @@ public class DatabasePopulator {
             Paper paper3 = new Paper(0, "", "Title3", List.of("author3"), "", "", 0, Set.of());
             paperRepository.save(paper3);
 
-            UserPaperMapping paper1ForUser = new UserPaperMapping(null, user, paper1);
-            UserPaperMapping paper3ForUser = new UserPaperMapping(null, user, paper3);
-            UserPaperMapping paper2ForAdmin = new UserPaperMapping(null, admin, paper2);
-            UserPaperMapping paper3ForAdmin = new UserPaperMapping(null, admin, paper3);
+            UserPaperMapping paper1ForUser = new UserPaperMapping(user, paper1);
+            UserPaperMapping paper3ForUser = new UserPaperMapping(user, paper3);
+            UserPaperMapping paper2ForAdmin = new UserPaperMapping(admin, paper2);
+            UserPaperMapping paper3ForAdmin = new UserPaperMapping(admin, paper3);
 
 
             user.setUserPaperMappings(Set.of(paper1ForUser, paper3ForUser));
