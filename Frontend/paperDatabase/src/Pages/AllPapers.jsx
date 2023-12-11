@@ -4,6 +4,8 @@ import PaperTable from "../Components/PaperTable";
 import { BACKEND_GETALLPAPERS } from '../Constants/endpoints.js';
 import { useStore } from "../Zustand/useStore.js";
 import { getAllPapers, deletePaperById } from "../Requests/paper.js";
+import { useNavigate } from "react-router-dom";
+import { redirect } from "react-router-dom";
 
 // const deleteEmployee = (id) => {
 //   return fetch(`/api/employees/${id}`, { method: "DELETE" }).then((res) =>
@@ -17,6 +19,8 @@ const AllPapers = () => {
   const [loading, setLoading] = useState(true);
   const [papers, setPapers] = useState(null);
   const getJwt = useStore((state) => state.jwt);
+  const isLoggedIn = useStore((state) => state.loggedIn);
+  const navigate = useNavigate();
 
 
   const handleDelete = (id) => {
@@ -36,11 +40,18 @@ const AllPapers = () => {
   
 
   useEffect(() => {
+    console.log(isLoggedIn);
+    if(!isLoggedIn) {
+      navigate('/');
+    }
     getAllPapers(getJwt)
       .then((papers) => {
         setLoading(false);
         setPapers(papers);
       })
+      .catch(error => {
+        console.log('ERROR: ' + error);
+      });
   }, []);
 
   if (loading) {
