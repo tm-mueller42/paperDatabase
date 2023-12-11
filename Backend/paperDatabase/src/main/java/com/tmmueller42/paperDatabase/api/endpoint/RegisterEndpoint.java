@@ -1,7 +1,7 @@
 package com.tmmueller42.paperDatabase.api.endpoint;
 
-import com.thisteam.logisticsprint2.persistence.entity.User;
-import com.thisteam.logisticsprint2.service.UserService;
+import com.tmmueller42.paperDatabase.persistence.entity.User;
+import com.tmmueller42.paperDatabase.service.UserService;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +22,7 @@ public class RegisterEndpoint {
     }
 
     @PostMapping
-    @Secured("ROLE_ADMIN")
+    //@Secured("ROLE_ADMIN")
     User create(@RequestBody User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userService.create(user);

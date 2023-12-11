@@ -5,9 +5,11 @@ import com.tmmueller42.paperDatabase.persistence.entity.Paper;
 import com.tmmueller42.paperDatabase.persistence.entity.User;
 import com.tmmueller42.paperDatabase.service.UserService;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -20,6 +22,14 @@ public class UserEndpoint {
     public UserEndpoint(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
+    }
+
+    @GetMapping("test")
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
+    String authorized(Authentication authentication) {
+        System.out.println("authorities: " + Arrays.toString(authentication.getAuthorities().toArray()));
+        //return userService.getAll().toString();
+        return "authorities: " + Arrays.toString(authentication.getAuthorities().toArray());
     }
 
     @GetMapping
@@ -35,7 +45,7 @@ public class UserEndpoint {
     }
 
     @GetMapping("{userId}/papers")
-    @Secured({"ROLE_USER"})
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     Set<Paper> getAllPapersByUserId(@PathVariable Long userId) {
         return userService.getAllPapersByUserId(userId);
     }

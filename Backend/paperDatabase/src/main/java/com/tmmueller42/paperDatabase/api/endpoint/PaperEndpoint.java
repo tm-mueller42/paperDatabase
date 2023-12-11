@@ -14,11 +14,11 @@ import java.util.List;
 @AllArgsConstructor
 public class PaperEndpoint {
 
-    private final PaperRepository paperRepository;
     private final PaperService paperService;
 
     @GetMapping
     List<Paper> findAll() {
+        System.out.println("request ok");
         return paperService.findAll();
     }
 
