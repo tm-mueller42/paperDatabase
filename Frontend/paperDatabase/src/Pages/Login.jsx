@@ -6,8 +6,8 @@ import { useStore } from "../Zustand/useStore.js";
 
 const Login = () => {
 
-  const [username, setUsername] = useState(null);
-  const [password, setPassword] = useState(null);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   //const [loggedIn, setLoggedIn] = useState(false);
   const [invalidLogin, setInvalidLogin] = useState(false);
 
@@ -15,52 +15,47 @@ const Login = () => {
   const setLoggedInTrue = useStore((state) => state.setLoggedInTrue);
   const setLoggedInFalse = useStore((state) => state.setLoggedInFalse);
 
-  const setStoredUserName = useStore((state) => state.setUsername);
-  const clearStoredUserName = useStore((state) => state.clearUsername);
+  const setStoredUsername = useStore((state) => state.setUsername);
+  const clearStoredUsername = useStore((state) => state.clearUsername);
   const setJwt = useStore((state) => state.setJwt);
   const clearJwt = useStore((state) => state.clearJwt);
+  const setAuthorities = useStore((state) => state.setAuthorities);
+  const clearAuthorities = useStore((state) => state.clearAuthorities);
+
+  const getJwt = useStore((state) => state.jwt);
+  const getUsername = useStore((state) => state.username);
+  const getAuthorities = useStore((state) => state.authorities);
+
+  const navigate = useNavigate();
 
   function handleLogin(event) {
     event.preventDefault();
     userLogin(username, password)
-      .then(returnedJwt => {
-        if(returnedJwt) {
-          //localStorage.setItem('jwt', jwt)
-          setJwt(returnedJwt);
+      .then(returnedAuth => {
+          setJwt(returnedAuth.jwt ? returnedAuth.jwt : "");
+          setStoredUsername(returnedAuth.username? returnedAuth.username : "");
+          setAuthorities(returnedAuth.authorities? returnedAuth.authorities : []);
           setInvalidLogin(false);
           setLoggedInTrue();
-          setStoredUserName(username);
-        }
-        else {
-          setInvalidLogin(true);
-          setUsername(null);
-          setPassword(null);
-          setLoggedInFalse();
-          clearJwt();
-          clearStoredUserName();
-        }
+          navigate("/");
       })
-      .catch(error => console.log('ERROR: ' + error));
+      .catch(error => {
+        console.log('ERROR: ' + error);
+        setInvalidLogin(true);
+        setUsername("");
+        setPassword("");
+        setLoggedInFalse();
+        clearJwt();
+        clearStoredUsername();
+        clearAuthorities();
+      });
   }
 
-  function removeJwt() {
-    localStorage.removeItem('jwt');
-    setUsername(null);
-    setPassword(null);
-    //setLoggedIn(!loggedIn);
-    setLoggedInFalse();
-  }
-
-
-  if (isLoggedIn) {
-    return (
-      <>
-        <h1>You are logged in</h1>
-        <button type="button" onClick={removeJwt}> Logout </button>
-      </>
-    )
-  }
-
+  useEffect(() => {
+    if(isLoggedIn) {
+      navigate('/');
+    }
+  }, []);
 
   return (
     <>
@@ -69,6 +64,7 @@ const Login = () => {
       <div className="control">
         <label htmlFor="username">Username:</label>
         <input
+          value={username? username : ""}
           onChange={(e) => setUsername(e.target.value)}
           name="username"
           id="username"
@@ -78,6 +74,7 @@ const Login = () => {
       <div className="control">
         <label htmlFor="password">Password:</label>
         <input
+          value={password}
           type="password"
           onChange={(e) => setPassword(e.target.value)}
           name="password"

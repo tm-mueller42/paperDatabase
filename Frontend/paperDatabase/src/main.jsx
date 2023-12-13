@@ -42,11 +42,11 @@ const router = createBrowserRouter([
         element: <Register />,
       },
       {
-        path: "/paper/myPapers",
+        path: "/papers/myPapers",
         element: <MyPapers />,
       },
       {
-        path: "/paper/allPapers",
+        path: "/papers/allPapers",
         element: <AllPapers />,
       },
       {

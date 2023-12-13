@@ -6,12 +6,13 @@ import { useStore } from "../Zustand/useStore";
 const Welcome = () => {  
 
   const isLoggedIn = useStore((state => state.loggedIn));
+  const user = useStore((state) => state.username);
 
   return (
     <>
-      <h1>Welcome to the Science Paper Database</h1>
       {!isLoggedIn &&
         <>
+          <h1>Welcome to the Science Paper Database</h1>
           <Link to={`/login`}>
             <button type="button">Login</button>
           </Link>
@@ -19,7 +20,9 @@ const Welcome = () => {
             <button type="button">Register</button>
           </Link>
         </>
-      }    
+      }  
+      {isLoggedIn &&
+      <h1>Welcome, {user}</h1>}
     </>
   );
 };

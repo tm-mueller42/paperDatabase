@@ -5,6 +5,7 @@ import com.tmmueller42.paperDatabase.persistence.entity.Paper;
 import com.tmmueller42.paperDatabase.persistence.repository.PaperRepository;
 import com.tmmueller42.paperDatabase.service.PaperService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
