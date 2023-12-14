@@ -36,12 +36,18 @@ public class DatabasePopulator {
             admin.setPassword(passwordEncoder.encode("123"));
             admin.setAuthorities(Set.of("ROLE_USER", "ROLE_ADMIN"));
 
-            Paper paper1 = new Paper(0, "", "Title1", List.of("author1"), "", "", 0, Set.of());
-            paperRepository.save(paper1);
-            Paper paper2 = new Paper(0, "", "Title2", List.of("author2"), "", "", 0, Set.of());
-            paperRepository.save(paper2);
-            Paper paper3 = new Paper(0, "", "Title3", List.of("author3"), "", "", 0, Set.of());
-            paperRepository.save(paper3);
+            Paper paper1 = new Paper(0, "", "Title1", List.of("author1"), "Cool Journal", "", 2000, Set.of());
+           // paperRepository.save(paper1);
+            Paper paper2 = new Paper(0, "", "Title2", List.of("author2"), "Journal of failed experiments", "", 2011, Set.of());
+         //   paperRepository.save(paper2);
+            Paper paper3 = new Paper(0, "", "Title3", List.of("author3"), "NatureScience", "", 1980, Set.of());
+           // paperRepository.save(paper3);
+            Paper paper4 = new Paper(0, "", "Title4", List.of("author2"), "NatureScience", "", 2000, Set.of());
+            Paper paper5 = new Paper(0, "", "Title5", List.of("author3"), "Journal of failed experiments", "", 2000, Set.of());
+            Paper paper6 = new Paper(0, "", "Title6", List.of("author3"), "Journal of failed experiments", "", 2002, Set.of());
+
+            List<Paper> papers = List.of(paper1, paper2, paper3, paper4, paper5, paper6);
+            paperRepository.saveAll(papers);
 
             UserPaperMapping paper1ForUser = new UserPaperMapping(user, paper1);
             UserPaperMapping paper3ForUser = new UserPaperMapping(user, paper3);

@@ -1,6 +1,7 @@
 package com.tmmueller42.paperDatabase.service;
 
 import com.tmmueller42.paperDatabase.api.exception.ElementNotFoundException;
+import com.tmmueller42.paperDatabase.persistence.DTO.SearchCriteria;
 import com.tmmueller42.paperDatabase.persistence.entity.Paper;
 import com.tmmueller42.paperDatabase.persistence.repository.PaperRepository;
 import lombok.AllArgsConstructor;
@@ -15,6 +16,7 @@ import java.util.Optional;
 public class PaperService {
 
     private final PaperRepository paperRepository;
+    private final EntitySpecification<Paper> entitySpecification;
 
     public List<Paper> findAll() {
         return paperRepository.findAll();
@@ -38,5 +40,9 @@ public class PaperService {
 
     public Optional<Paper> findById(Long id) {
         return paperRepository.findById(id);
+    }
+
+    public List<Paper> findFilteredPapers(SearchCriteria searchCriteria) {
+        return paperRepository.findAll(entitySpecification.specificationBuilder(searchCriteria));
     }
 }

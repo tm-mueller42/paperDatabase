@@ -1,6 +1,7 @@
 package com.tmmueller42.paperDatabase.api.endpoint;
 
 import com.tmmueller42.paperDatabase.api.exception.ElementNotFoundException;
+import com.tmmueller42.paperDatabase.persistence.DTO.SearchCriteria;
 import com.tmmueller42.paperDatabase.persistence.entity.Paper;
 import com.tmmueller42.paperDatabase.persistence.repository.PaperRepository;
 import com.tmmueller42.paperDatabase.service.PaperService;
@@ -19,7 +20,6 @@ public class PaperEndpoint {
 
     @GetMapping
     List<Paper> findAll() {
-        System.out.println("request ok");
         return paperService.findAll();
     }
 
@@ -36,6 +36,11 @@ public class PaperEndpoint {
     @GetMapping("/year/{from}/{to}")
     List<Paper> findByYearOfPublication(@PathVariable int from, @PathVariable int to) {
         return paperService.findByYearOfPublicationBetween(from, to);
+    }
+
+    @GetMapping("/filter")
+    List<Paper> findFilteredPapers(@RequestBody SearchCriteria searchCriteria) {
+        return paperService.findFilteredPapers(searchCriteria);
     }
 
     @PostMapping
