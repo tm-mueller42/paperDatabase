@@ -29,10 +29,10 @@ const Layout = () => {
             {isLoggedIn &&
               <>
               <li >
-                <Link to="/paper/allPapers">All Papers</Link>
+                <Link to="/papers/allPapers">All Papers</Link>
               </li>
               <li className="grow">
-                <Link to="/paper/myPapers">My Papers</Link>
+                <Link to="/papers/myPapers">My Papers</Link>
               </li>
               <li>
                 <Link to="/paper/create">

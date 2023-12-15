@@ -38,10 +38,24 @@ public class PaperEndpoint {
         return paperService.findByYearOfPublicationBetween(from, to);
     }
 
-    @GetMapping("/filter")
+
+    @PatchMapping("/filter")
     List<Paper> findFilteredPapers(@RequestBody SearchCriteria searchCriteria) {
-        return paperService.findFilteredPapers(searchCriteria);
+        List<Paper> papers = paperService.findFilteredPapers(searchCriteria);
+        for(Paper paper : papers) {
+            System.out.println(paper.getId());
+        }
+        return papers;
     }
+
+
+/*
+    @PatchMapping("/filter")
+    void findFilteredPapers(@RequestBody SearchCriteria searchCriteria) {
+        System.out.println(searchCriteria.getFilters().get(0).getValue());
+    }
+
+ */
 
     @PostMapping
     Paper save(@RequestBody Paper paper) {
