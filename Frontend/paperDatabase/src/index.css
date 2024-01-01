@@ -45,12 +45,12 @@ table {
 
 table tbody tr {
   /*background-color: rgb(198, 218, 255);*/
-  background-color: rgba(99, 207, 180, 0.723);
+  background-color: rgba(41, 241, 71, 0.723);
 }
 
 table tbody tr:nth-child(even) {
   /*background-color: rgb(219, 230, 255);*/
-  background-color: rgb(226, 255, 219);
+  background-color: rgb(182, 247, 165);
 }
 
 table td,

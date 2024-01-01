@@ -7,6 +7,7 @@ import com.tmmueller42.paperDatabase.persistence.repository.PaperRepository;
 import com.tmmueller42.paperDatabase.service.PaperService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,24 +39,10 @@ public class PaperEndpoint {
         return paperService.findByYearOfPublicationBetween(from, to);
     }
 
-
-    @PatchMapping("/filter")
+    @PostMapping("/filter")
     List<Paper> findFilteredPapers(@RequestBody SearchCriteria searchCriteria) {
-        List<Paper> papers = paperService.findFilteredPapers(searchCriteria);
-        for(Paper paper : papers) {
-            System.out.println(paper.getId());
-        }
-        return papers;
+        return paperService.findFilteredPapers(searchCriteria);
     }
-
-
-/*
-    @PatchMapping("/filter")
-    void findFilteredPapers(@RequestBody SearchCriteria searchCriteria) {
-        System.out.println(searchCriteria.getFilters().get(0).getValue());
-    }
-
- */
 
     @PostMapping
     Paper save(@RequestBody Paper paper) {

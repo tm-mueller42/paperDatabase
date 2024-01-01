@@ -1,11 +1,9 @@
 package com.tmmueller42.paperDatabase.service;
 
-import com.tmmueller42.paperDatabase.api.exception.ElementNotFoundException;
 import com.tmmueller42.paperDatabase.persistence.DTO.SearchCriteria;
 import com.tmmueller42.paperDatabase.persistence.entity.Paper;
 import com.tmmueller42.paperDatabase.persistence.repository.PaperRepository;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

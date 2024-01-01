@@ -1,9 +1,8 @@
 package com.tmmueller42.paperDatabase.service;
 import com.tmmueller42.paperDatabase.persistence.DTO.SearchCriteria;
 import org.apache.commons.collections.CollectionUtils;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.util.List;
 import java.util.Objects;
@@ -18,7 +17,6 @@ public class EntitySpecification<T> {
             List<Specification<T>> specifications = filters.stream()
                     .map(this::createSpecification)
                     .collect(Collectors.toList());
-
             return Specification.allOf(specifications);
         }
         return null;
@@ -38,5 +36,4 @@ public class EntitySpecification<T> {
                     (root, query, criteriaBuilder) -> criteriaBuilder.like(root.get(filter.getField()), "%" + filter.getValue() + "%");
         };
     }
-
 }

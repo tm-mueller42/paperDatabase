@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, } from "react-router-dom";
 import { Buffer } from 'buffer';
 import { userLogin} from '../Requests/login.js';
-import { useStore } from "../Zustand/useStore.js";
+import { useStore } from "../Zustand/hooks.js";
 
 const Login = () => {
 
@@ -59,43 +59,40 @@ const Login = () => {
 
   return (
     <>
-      <form className="EmployeeForm" onSubmit={handleLogin}>
+      <form className="RegistrationForm" onSubmit={handleLogin}>
+      <h1>Login</h1>
+        <div className="control">
+          <label htmlFor="username">Username:</label>
+          <input
+            value={username? username : ""}
+            onChange={(e) => setUsername(e.target.value)}
+            name="username"
+            id="username"
+          />
+        </div>
+        <div className="control">
+          <label htmlFor="password">Password:</label>
+          <input
+            value={password}
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+            name="password"
+            id="password"
+          />
+        </div>
+        <div className="buttons">
+          <button type="submit" >
+            Submit
+          </button>
 
-      <div className="control">
-        <label htmlFor="username">Username:</label>
-        <input
-          value={username? username : ""}
-          onChange={(e) => setUsername(e.target.value)}
-          name="username"
-          id="username"
-        />
-      </div>
-
-      <div className="control">
-        <label htmlFor="password">Password:</label>
-        <input
-          value={password}
-          type="password"
-          onChange={(e) => setPassword(e.target.value)}
-          name="password"
-          id="password"
-        />
-      </div>
-
-
-      <div className="buttons">
-        <button type="submit" >
-          Submit
-        </button>
-
-        <Link to={`/`}>
-          <button type="button">Cancel</button>
-        </Link>
-      </div>
-    </form>
-    {invalidLogin && 
-      <p>Invalid username or password!</p>
-    }
+          <Link to={`/`}>
+            <button type="button">Cancel</button>
+          </Link>
+        </div>
+      </form>
+      {invalidLogin && 
+        <p>Invalid username or password!</p>
+      }
     </>
   );
 };

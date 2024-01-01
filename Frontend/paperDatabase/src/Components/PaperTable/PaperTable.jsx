@@ -1,38 +1,17 @@
 import { Link, useNavigate, useParams, } from "react-router-dom";
 import  { useState } from "react";
-import { useFilter } from "../../Zustand/useStore";
+import { useFilter } from "../../Zustand/hooks";
 import "./PaperTable.css";
 
 const PaperTable = ({ papers, onClickSort, onDelete, onFilter }) => {
 
+  const filters = useFilter((state) => state.filters);
   const clearFilters = useFilter((state) => state.clearAll);
-  const titleFilter = useFilter((state) => state.title);
-  const publishedBeforeFilter = useFilter((state) => state.before);
-  const publishedAfterFilter = useFilter((state) => state.after);
-  const journalFilter = useFilter((state) => state.journal);
-
-  const setTitleFilterValue = useFilter((state) => state.setTitle);
-  const setPublishedBeforeFilterValue = useFilter((state) => state.setBefore);
-  const setPublishedAfterFilterValue = useFilter((state) => state.setAfter);
-  const setJournalFilterValue = useFilter((state) => state.setJournal);
-
-
-  // const [titleSearch, setTitleSearch] = useState({field: "title", operator : "LIKE", value : "test"});
-  // const [publishedBefore, setPublishedBefore] = useState({field: "yearOfPublication", operator : "LESS_THAN", value : ""});
-  // const [publishedAfter, setPublishedAfter] = useState({field: "yearOfPublication", operator : "GREATER_THAN", value : ""});
-  // const [journalSearch, setJournalSearch] = useState({field: "journal", operator : "LIKE", value : ""});
+  const setFilters = useFilter((state) => state.setFilters);
 
   const onSubmit = (e) => {
     e.preventDefault();
-    //console.log("title: ", titleSearch.value, "before: ", publishedBefore, "after: ", publishedAfter, "journal: ", journalSearch);
-    let searchArray = [titleFilter, publishedBeforeFilter, publishedAfterFilter, journalFilter];
-    let currentSearch = searchArray.reduce((acc, searchItem) => {
-      if (searchItem.value) {
-        return [...acc, searchItem];
-      }
-      return acc;
-    },[]);
-    onFilter({filters : currentSearch});
+    onFilter();
   }
 
   const handleClear = () => {
@@ -47,10 +26,8 @@ const PaperTable = ({ papers, onClickSort, onDelete, onFilter }) => {
         <label htmlFor="title">Title: 
           <input
             type="text"
-            // value={titleSearch.value}
-            // onChange={(e) => {setTitleSearch({...titleSearch, value : e.target.value})}}
-            value = {titleFilter.value}
-            onChange={(e) => {setTitleFilterValue(e.target.value)}}
+            value = {filters.title.value}
+            onChange={(e) => setFilters({...filters, title: {...filters.title, value: e.target.value}})}
             name="title"
             id="title"
           />
@@ -58,10 +35,8 @@ const PaperTable = ({ papers, onClickSort, onDelete, onFilter }) => {
         <label htmlFor="publishedbefore">published before:
           <input 
             type="number" 
-            // value={publishedBefore.value ? publishedBefore.value : ""}
-            // onChange={(e) => {setPublishedBefore({...publishedBefore, value : e.target.value})}}
-            value = {publishedBeforeFilter.value}
-            onChange={(e) => {setPublishedBeforeFilterValue(e.target.value)}}
+            value = {filters.before.value}
+            onChange={(e) => setFilters({...filters, before: {...filters.before, value: e.target.value}})}
             name="publishedbefore"
             id="publishedbefore"
           />
@@ -69,10 +44,8 @@ const PaperTable = ({ papers, onClickSort, onDelete, onFilter }) => {
         <label htmlFor="publishedafter">published after:
           <input 
             type="number" 
-            // value={publishedAfter.value ? publishedAfter.value : ""}
-            // onChange={(e) => {setPublishedAfter(e.target.value)}}
-            value = {publishedAfterFilter.value}
-            onChange={(e) => {setPublishedAfterFilterValue(e.target.value)}}
+            value = {filters.after.value}
+            onChange={(e) => setFilters({...filters, after: {...filters.after, value: e.target.value}})}
             name="publishedafter"
             id="publishedafter"            
           />
@@ -80,10 +53,8 @@ const PaperTable = ({ papers, onClickSort, onDelete, onFilter }) => {
         <label htmlFor="journal">Journal:
           <input 
             type="text" 
-            // value={journalSearch.value ? journalSearch.value : ""}
-            // onChange={(e) => {setJournalSearch(e.target.value)}}
-            value = {journalFilter.value}
-            onChange={(e) => {setJournalFilterValue(e.target.value)}}
+            value = {filters.journal.value}
+            onChange={(e) => setFilters({...filters, journal: {...filters.journal, value: e.target.value}})}
             name="journal"
             id="journal"
           />

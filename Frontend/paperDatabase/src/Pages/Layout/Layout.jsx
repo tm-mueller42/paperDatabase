@@ -1,5 +1,5 @@
 import { Outlet, Link } from "react-router-dom";
-import { useStore } from "../../Zustand/useStore";
+import { useStore } from "../../Zustand/hooks";
 import "./Layout.css";
 import { useNavigate } from "react-router-dom";
 

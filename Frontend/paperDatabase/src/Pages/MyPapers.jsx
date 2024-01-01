@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import UnderConstruction from "../Components/UnderConstruction";
-import { useStore } from "../Zustand/useStore";
+import { useStore } from "../Zustand/hooks";
 import { useNavigate } from "react-router-dom";
 
 const MyPapers = () => {

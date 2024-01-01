@@ -3,6 +3,7 @@ package com.tmmueller42.paperDatabase.api.endpoint;
 import com.tmmueller42.paperDatabase.persistence.entity.User;
 import com.tmmueller42.paperDatabase.service.UserService;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

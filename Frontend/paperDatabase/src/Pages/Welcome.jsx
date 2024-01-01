@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Loading from "../Components/Loading";
 import { Link, useNavigate, } from "react-router-dom";
-import { useStore } from "../Zustand/useStore";
+import { useStore } from "../Zustand/hooks";
 
 const Welcome = () => {  
 
